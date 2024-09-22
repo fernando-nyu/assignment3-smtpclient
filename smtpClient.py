@@ -4,62 +4,37 @@ from socket import *
 def smtp_client(port=1025, mailserver='127.0.0.1'):
     msg = "\r\n My message"
     endmsg = "\r\n.\r\n"
-
-    # Choose a mail server (e.g. Google mail server) if you want to verify the script beyond GradeScope
-    
     # Create socket called clientSocket and establish a TCP connection with mailserver and port
-    # Fill in start
     clientSocket = socket(AF_INET, SOCK_STREAM)
     clientSocket.connect((mailserver,port))
-    # Fill in end
-
     clientSocket.recv(1024).decode()
-    #print(recv) #You can use these print statement to validate return codes from the server.
-
-    # Send HELO command and print server response.
+    # Send HELO command
     heloCommand = 'HELO Alice\r\n'
     clientSocket.send(heloCommand.encode())
     clientSocket.recv(1024).decode()
-
-    # Send MAIL FROM command and handle server response.
-    # Fill in start
+    # Send MAIL FROM command
     mailCommand = 'MAIL FROM:<from@local.host\r\n'
     clientSocket.send(mailCommand.encode())
     clientSocket.recv(1024).decode()
-    # Fill in end
-
-    # Send RCPT TO command and handle server response.
-    # Fill in start
+    # Send RCPT TO command
     rcptCommand = 'RCPT TO:<rcpt@local.host\r\n'
     clientSocket.send(rcptCommand.encode())
     clientSocket.recv(1024).decode()
-    # Fill in end
-
-    # Send DATA command and handle server response.
-    # Fill in start
+    # Send DATA command
     dataCommand = 'DATA\r\n\r\n'
     clientSocket.send(dataCommand.encode())
     clientSocket.recv(1024).decode()
-    # Fill in end
-
-    # Send message data.
-    # Fill in start
+    # Send message data
     emailData = "Subject: TEST EMAIL\r\n" + "From: from@local.host\r\n" + "To: rcpt@local.host" + msg
     clientSocket.send(emailData.encode())
-    # Fill in end
-
-    # Message ends with a single period, send message end and handle server response.
-    # Fill in start
+    # Message ends with a single period, send message end
     clientSocket.send(endmsg.encode())
     clientSocket.recv(1024).decode()
-    # Fill in end
-
-    # Send QUIT command and handle server response.
-    # Fill in start
+    # Send QUIT command
     quitCommand = 'QUIT\r\n'
     clientSocket.send(quitCommand.encode())
     clientSocket.recv(1024).decode()
-    # Fill in end
+    # Close socket
     clientSocket.close()
 
 
